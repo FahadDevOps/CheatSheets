@@ -1,0 +1,47 @@
+How to insatll Kubectl:-
+
+Step 1: Install Kubectl
+
+1. root@ubuntu-host ~ on ☁️ odl_user_1031426@cloudlabsgcporg8.com(us-west1) ✖
+sudo apt-get install kubectl
+You can install kubectl using the Google Cloud CLI or an external package
+manager such as apt or yum. We used apt-get to install kubectl
+gcloud components install kubectl
+sudo apt-get install kubectl
+
+2. Verify that kubectl is installed
+a. kubectl version
+Step 2: Verify installation of required plugins
+Before you begin, check whether the plugin is already installed:
+gke-gcloud-auth-plugin --version
+If the output displays version information, skip this section.
+1. gcloud components install gke-gcloud-auth-plugin
+2. gke-gcloud-auth-plugin --version
+
+Step 3: generate a kubeconfig context for a specific cluster and to use the
+plugin:
+1. gcloud container clusters get-credentials CLUSTER_NAME --region=COMPUTE_REGION
+● Replace the following:
+i. CLUSTER_NAME: the name of your cluster.
+ii. COMPUTE_REGION: the Compute Engine region for your cluster. For
+zonal clusters, use --zone=COMPUTE_ZONE.
+gcloud container clusters get-credentials gke-deep-dive --zone us-west1-a
+
+Step 4: Verify the configuration:
+2. kubectl get namespaces
+● The output is similar to the following:
+NAME STATUS AGE
+default Active 51d
+kube-node-lease Active 51d
+kube-public Active 51d
+kube-system Active 51d
+
+Step 5: View Kubeconfig
+kubectl config view
+
+Step 6: Install a test app:
+kubectl run my-app --image gcr.io/cloud-marketplace/google/nginx1:latest --cluster
+<Cluster-Name>
+
+Step 7: Verify the app by listing pods:
+Kubectl get pods
